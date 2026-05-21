@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, } from 'react-native';
+import { CalcButton } from './components/CalcButton';
+import { styles } from './appTheme';
+import { useCalculator } from './hooks/useCalculator';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const { numero1, setNumero1, numero2 , setNumero2, respuesta, calcular } = useCalculator();
+   return (
+    <View>
+      
+      <TextInput style={styles.ingreso} placeholder="Ingrese el Primer Número"onChangeText={setNumero1} />
+      <TextInput style={styles.ingreso} placeholder="Ingrese el Segundo Número"onChangeText={setNumero2} />
+      <Text style={{fontSize: 16, fontWeight: 'bold', marginBottom: 10}}>Seleccione una operación:</Text>
+      <View style={styles.fila}>
+      
+      <CalcButton label='Sumar' onPress={()=> calcular ('+')}></CalcButton>
+      <CalcButton label='Restar' onPress={()=> calcular ('-')}></CalcButton>
+      <CalcButton label='Multiplicar' onPress={()=> calcular ('*')}></CalcButton>
+      <CalcButton label='Dividir' onPress={()=> calcular ('/')}></CalcButton>
+      </View>
+      
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+      <Text style={styles.resultado}> resultado {respuesta}</Text>
+
+    </View>
+   )
+
+}
